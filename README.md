@@ -8,3 +8,5 @@ Also note that anyone who have that certificate can modify you DNS zone, so you 
 
 If you want a self-hosted alternative for no-ip.com or dyndns.com, you should consider to install [nsupdate.info](https://github.com/nsupdate-info/nsupdate.info)
 
+The script itself is self-explanatory and nicely commented, I think you'll have no problem at all modifying the variables to your needs.
+
