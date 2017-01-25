@@ -1,6 +1,6 @@
 # nsupdate-dynip
 
-You can use this small script to update a BIND server from a outside client machine, to use BIND as a Dynamic DNS server.
+You can use this small script to update a BIND server from a outside client machine, to use BIND as a Dynamic DNS server as a poor man's DynDNS/NoIP alternative for one man or a closed group of friends.
 
 # Prerequisites
 
