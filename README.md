@@ -4,7 +4,7 @@ You can use this small script to update a BIND server from a outside client mach
 
 # Prerequisites
 
-* A **linux** box, ovbiously this won't work on Windows, but it most probably work on other *NIXes
+* A **linux** box inside your LAN turned to make the queries to the DNS servers, ovbiously this won't work on Windows, but it most probably work on other *NIXes
 * **bind-tools**
 * **cron** or equivalent (cronie, etc), to automatize the task
 * **A working remote BIND server with an static IP:**
@@ -22,5 +22,5 @@ If you want a self-hosted alternative for no-ip.com or dyndns.com, you should co
 The script itself is self-explanatory and nicely commented, I think you'll have no problem at all modifying the variables to your needs.
 
 Put the script wherever you want (for example on /opt/nsupdate/nsupdate-dynip), make sure it's executable.
-Then create a cron task to run it. I'm supplying a cron job for you to place on /etc/cron.d/
+Then create a cron task to run it. I'm supplying a cron job for you to place on /etc/cron.d/0nsupdate-dynip
 
