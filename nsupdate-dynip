@@ -3,14 +3,6 @@
 ECHO=$(which echo)
 NSUPDATE=$(which nsupdate)
 
-# Get your public IP address in the quickest and fanciest
-# way to if you have bind-tools installed
-IP=`dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}'`
-
-# Another way to get your public address. Only curl needed. It's a bit
-# slower and it relies on 3rd party services which can or cannot be online.
-#IP=`curl ifconfig.co`
-
 # Set the DNS entry you want to update, please notice the final dot.
 HOST="myhost.mydomain.com."
 
@@ -23,11 +15,20 @@ SERVER="dnsserver.mydomain.net"
 # Set the zone to modify, it can be any zone previous key has permissions to modify
 ZONE="mydomain.com."
 
-$ECHO "server $SERVER" > /tmp/nsupdate
-$ECHO "debug yes" >> /tmp/nsupdate
-$ECHO "zone $ZONE" >> /tmp/nsupdate
-$ECHO "update delete $HOST" >> /tmp/nsupdate
-$ECHO "update add $HOST 600 A $IP" >> /tmp/nsupdate
-$ECHO "send" >> /tmp/nsupdate
+# Get your public IP address in the quickest and fanciest
+# way to if you have bind-tools installed
+IP=`dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}'`
+OLDIP=`dig $HOST +short @8.8.8.8`
 
-$NSUPDATE -k ${KEY} -v /tmp/nsupdate 2>&1
+if [ "$IP" != "$OLDIP" ];
+then
+    $ECHO "server $SERVER" > /tmp/nsupdate
+    $ECHO "debug yes" >> /tmp/nsupdate
+    $ECHO "zone $ZONE" >> /tmp/nsupdate
+    $ECHO "update delete $HOST" >> /tmp/nsupdate
+    $ECHO "update add $HOST 600 A $IP" >> /tmp/nsupdate
+    $ECHO "send" >> /tmp/nsupdate
+else
+    $ECHO "No update needed, exiting..."
+fi
+$NSUPDATE -k ${KEY} -v /tmp/nsupdate >> /var/log/nsupdate.log 2>&1
