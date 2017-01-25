@@ -1,0 +1,2 @@
+# Run the nsupdate script every 5 minutes with the 'timed' option.                            
+*/5 * * * * root    [ -x /opt/nsupdate/update ] && /opt/nsupdate/nsupdate-dynip >>/var/log/nsupdate-dynip.log 2>&1
